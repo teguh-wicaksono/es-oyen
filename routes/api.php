@@ -98,6 +98,7 @@ Route::prefix('mobile')->group(function () {
     });
 });
 
+if (! function_exists('syncMobilePesanan')) {
 function syncMobilePesanan(string $action, array $payload): void
 {
     if ($action === 'status') {
@@ -147,6 +148,9 @@ function syncMobilePesanan(string $action, array $payload): void
     }
 }
 
+} // end syncMobilePesanan
+
+if (! function_exists('validMobileUserId')) {
 function validMobileUserId(mixed $id, string $role): int
 {
     if ($id && DB::table('users')->where('id', $id)->exists()) {
@@ -157,6 +161,9 @@ function validMobileUserId(mixed $id, string $role): int
         ?: (int) DB::table('users')->value('id');
 }
 
+} // end validMobileUserId
+
+if (! function_exists('filterMobileColumns')) {
 function filterMobileColumns(string $table, array $payload): array
 {
     $columns = DB::getSchemaBuilder()->getColumnListing($table);
@@ -165,3 +172,4 @@ function filterMobileColumns(string $table, array $payload): array
         ->reject(fn ($value) => is_array($value))
         ->all();
 }
+} // end filterMobileColumns
